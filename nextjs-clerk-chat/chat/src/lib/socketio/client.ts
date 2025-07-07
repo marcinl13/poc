@@ -17,5 +17,5 @@ export interface ServerToClientEvents {
 }
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  "http://localhost:3006",
+  process.env.NEXT_PUBLIC_SOCKET_SERVER_URL,
 );

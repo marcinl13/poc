@@ -1,9 +1,9 @@
 import "server-only";
 import { FormJoinChannel } from "@/components/FormJoinChannel";
-import { getUserData } from "@/data-access-layer/get-user-data";
+import { requireUserData } from "@/data-access-layer/require-user-data";
 
 export default async function Page() {
-  await getUserData();
+  await requireUserData();
 
   return (
     <main className="container mx-auto flex justify-center p-4">

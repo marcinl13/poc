@@ -1,12 +1,9 @@
 import "server-only";
 
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { requireUserData } from "./require-user-data";
 
 export const getUserData = async () => {
-  const user = await currentUser();
-
-  if (!user) redirect("/chat");
+  const user = await requireUserData();
 
   return {
     id: user.id,

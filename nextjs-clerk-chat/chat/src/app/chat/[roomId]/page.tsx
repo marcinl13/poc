@@ -3,6 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import type { RoleValue } from "@/types";
 import { redirect } from "next/navigation";
 import { ChatRoom } from "@/components/ChatRoom/ChatRoom";
+import { COOKIE_ROLE_KEY } from "@/const/cookies";
 
 type Params = Promise<{ roomId: string }>;
 
@@ -11,7 +12,7 @@ export default async function ChatRoomPage({ params }: { params: Params }) {
   const cookieStore = await cookies();
   const awaitParams = await params;
 
-  const assignedRole = cookieStore.get("channelRole")?.value as
+  const assignedRole = cookieStore.get(COOKIE_ROLE_KEY)?.value as
     | RoleValue
     | undefined;
 

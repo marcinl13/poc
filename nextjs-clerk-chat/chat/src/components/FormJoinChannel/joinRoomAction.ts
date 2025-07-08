@@ -1,5 +1,6 @@
 "use server";
 
+import { COOKIE_ROLE_KEY } from "@/const/cookies";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -13,7 +14,7 @@ export async function joinRoomAction(formData: FormData) {
 
   // https://nextjs.org/docs/app/api-reference/functions/cookies
   cookieStore.set({
-    name: "channelRole",
+    name: COOKIE_ROLE_KEY,
     value: channelRole as string,
     httpOnly: false, // Set to true if you want it only accessible from the server
     path: "/",

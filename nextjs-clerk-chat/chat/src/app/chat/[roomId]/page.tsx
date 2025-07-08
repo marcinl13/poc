@@ -1,31 +1,11 @@
-import { cookies } from "next/headers";
-import { currentUser } from "@clerk/nextjs/server";
-import type { RoleValue } from "@/types";
-import { redirect } from "next/navigation";
 import { ChatRoom } from "@/components/ChatRoom/ChatRoom";
-import { COOKIE_ROLE_KEY } from "@/const/cookies";
+import { getUserDataWithRole } from "@/data-access-layer/get-user-data-with-role";
 
 type Params = Promise<{ roomId: string }>;
 
 export default async function ChatRoomPage({ params }: { params: Params }) {
-  const user = await currentUser();
-  const cookieStore = await cookies();
+  const userDataWithRole = await getUserDataWithRole();
   const awaitParams = await params;
 
-  const assignedRole = cookieStore.get(COOKIE_ROLE_KEY)?.value as
-    | RoleValue
-    | undefined;
-
-  if (!user || !assignedRole) redirect("/chat");
-
-  return (
-    <ChatRoom
-      roomId={awaitParams.roomId}
-      userInfo={{
-        id: user.id,
-        email: user.primaryEmailAddress?.emailAddress || "guest",
-        role: assignedRole,
-      }}
-    />
-  );
+  return <ChatRoom roomId={awaitParams.roomId} userInfo={userDataWithRole} />;
 }

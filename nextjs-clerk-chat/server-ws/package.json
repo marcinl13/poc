@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "./src/server.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/server.ts",
+    "lint": "biome check .",
+    "lint:fix": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^24.0.10",
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.1.10",
+    "pino-http": "^10.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}

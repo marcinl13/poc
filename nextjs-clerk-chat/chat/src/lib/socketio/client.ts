@@ -17,5 +17,5 @@ export interface ServerToClientEvents {
 }
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  process.env.NEXT_PUBLIC_SOCKET_SERVER_URL,
+  process.env.NEXT_PUBLIC_SOCKET_IO_SERVER_URL,
 );

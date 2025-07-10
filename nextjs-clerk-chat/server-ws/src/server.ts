@@ -4,6 +4,7 @@ import { handleGetRooms } from "./handlers/handleGetRooms";
 import { handleJoinRoom } from "./handlers/handleJoinRoom";
 import { handleLeaveRoom } from "./handlers/handleLeaveRoom";
 import type { RoomId, WebSocketClient, WebSocketMessage } from "./types";
+import logger from "./utils/logger";
 
 const PORT = 8080;
 const wss = new WebSocketServer({ port: PORT });
@@ -19,6 +20,8 @@ export const rooms = new Map<
 // 🔌 WebSocket connection
 wss.on("connection", (ws: WebSocketClient) => {
   ws.on("message", (data) => {
+    logger.debug({ rawData: data.toString() }, "Received message");
+
     let message: WebSocketMessage;
     try {
       message = JSON.parse(data.toString());
@@ -43,13 +46,20 @@ wss.on("connection", (ws: WebSocketClient) => {
         handleGetRooms(ws);
         break;
     }
+
+    logger.info({ type: message.type }, "Handling message type");
   });
 
   ws.on("close", () => {
     if (ws.roomId && ws.user) {
+      logger.info(
+        { roomId: ws.roomId, userId: ws.user.id },
+        "Cleaning up user on disconnect",
+      );
+
       handleLeaveRoom(ws, ws.roomId);
     }
   });
 });
 
-console.log(`WebSocket server started on ws://localhost:${PORT}`);
+logger.info(`WebSocket server started on ws://localhost:${PORT}`);

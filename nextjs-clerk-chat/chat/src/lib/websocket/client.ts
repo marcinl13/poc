@@ -2,7 +2,7 @@ let socket: WebSocket | null = null;
 
 export function connectToWebSocket(): WebSocket {
   if (!socket || socket.readyState === WebSocket.CLOSED) {
-    socket = new WebSocket(process.env.NEXT_PUBLIC_SOCKET_WS_SERVER_URL);
+    socket = new WebSocket(process.env.NEXT_PUBLIC_SOCKET_WS_SERVER_URL!);
   }
   return socket;
 }

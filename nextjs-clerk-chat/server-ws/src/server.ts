@@ -19,6 +19,12 @@ export const rooms = new Map<
 
 // 🔌 WebSocket connection
 wss.on("connection", (ws: WebSocketClient) => {
+  ws.isAlive = true;
+
+  ws.on("pong", () => {
+    ws.isAlive = true;
+  });
+
   ws.on("message", (data) => {
     logger.debug({ rawData: data.toString() }, "Received message");
 
@@ -60,6 +66,26 @@ wss.on("connection", (ws: WebSocketClient) => {
       handleLeaveRoom(ws, ws.roomId);
     }
   });
+});
+
+const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+
+const interval = setInterval(() => {
+  wss.clients.forEach((client) => {
+    const ws = client as WebSocketClient;
+
+    if (ws.isAlive === false) {
+      logger.info("Terminating dead connection");
+      return ws.terminate();
+    }
+
+    ws.isAlive = false;
+    ws.ping(); // triggers 'pong' if client is responsive
+  });
+}, HEARTBEAT_INTERVAL);
+
+wss.on("close", () => {
+  clearInterval(interval);
 });
 
 logger.info(`WebSocket server started on ws://localhost:${PORT}`);

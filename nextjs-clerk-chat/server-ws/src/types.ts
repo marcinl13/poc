@@ -14,6 +14,7 @@ export type Message = {
 };
 
 export type WebSocketClient = WebSocket & {
+  isAlive: boolean;
   user?: User;
   roomId?: RoomId;
 };

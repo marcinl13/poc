@@ -1,3 +1,5 @@
+import type { WebSocket } from "ws";
+
 export type RoomId = string;
 
 export type User = {
@@ -9,6 +11,12 @@ export type User = {
 export type Message = {
   text: string;
   user: User;
+};
+
+export type WebSocketClient = WebSocket & {
+  isAlive: boolean;
+  user?: User;
+  roomId?: RoomId;
 };
 
 export type WebSocketMessage =
@@ -34,7 +42,15 @@ export type WebSocketMessage =
     }
   | {
       type: "get-rooms";
-      payload: {};
+      payload: {
+        rooms: Array<
+          {
+            id: RoomId;
+            name: string;
+            memberCount: number;
+          }[]
+        >;
+      };
     };
 
 export type ServerMessage =
@@ -89,15 +105,3 @@ export type ServerMessage =
         message: string;
       };
     };
-
-export interface ClientInfo {
-  ws: WebSocket;
-  user: User | null;
-  roomId: RoomId | null;
-}
-
-export interface Room {
-  id: RoomId;
-  name: string;
-  memberCount: number;
-}

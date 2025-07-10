@@ -1,142 +1,33 @@
-import { WebSocketServer, WebSocket } from "ws";
-import type {
-  RoomId,
-  User,
-  Message,
-  WebSocketMessage,
-  ServerMessage,
-} from "./types";
-
-type Client = WebSocket & {
-  user?: User;
-  roomId?: RoomId;
-};
+import { WebSocketServer } from "ws";
+import { handleChatMessage } from "./handlers/handleChatMessage";
+import { handleGetRooms } from "./handlers/handleGetRooms";
+import { handleJoinRoom } from "./handlers/handleJoinRoom";
+import { handleLeaveRoom } from "./handlers/handleLeaveRoom";
+import type { RoomId, WebSocketClient, WebSocketMessage } from "./types";
+import logger from "./utils/logger";
 
 const PORT = 8080;
 const wss = new WebSocketServer({ port: PORT });
 
-const rooms = new Map<
+export const rooms = new Map<
   RoomId,
   {
     name: string;
-    clients: Set<Client>;
+    clients: Set<WebSocketClient>;
   }
 >();
 
-// 🔁 Broadcast helper
-function broadcastToRoom(
-  roomId: RoomId,
-  message: ServerMessage,
-  excludeClient?: WebSocket,
-) {
-  const room = rooms.get(roomId);
-  if (!room) return;
-
-  const json = JSON.stringify(message);
-  for (const client of room.clients) {
-    if (client.readyState === WebSocket.OPEN && client !== excludeClient) {
-      client.send(json);
-    }
-  }
-}
-
-// 🧠 JOIN ROOM
-function handleJoinRoom(ws: Client, roomId: RoomId, user: User) {
-  ws.user = user;
-  ws.roomId = roomId;
-
-  if (!rooms.has(roomId)) {
-    rooms.set(roomId, { name: `Room ${roomId}`, clients: new Set() });
-  }
-
-  const room = rooms.get(roomId)!;
-  room.clients.add(ws);
-
-  // Notify the joining client
-  ws.send(
-    JSON.stringify({
-      type: "room-joined",
-      payload: {
-        roomId,
-        members: [...room.clients].map((c) => c.user!),
-      },
-    } satisfies ServerMessage),
-  );
-
-  // Notify others
-  broadcastToRoom(
-    roomId,
-    {
-      type: "user-joined",
-      payload: { roomId, user },
-    },
-    ws,
-  );
-}
-
-// 👋 LEAVE ROOM
-function handleLeaveRoom(ws: Client, roomId: RoomId) {
-  const room = rooms.get(roomId);
-  if (!room || !ws.user) return;
-
-  room.clients.delete(ws);
-
-  broadcastToRoom(roomId, {
-    type: "user-left",
-    payload: {
-      roomId,
-      user: ws.user!,
-    },
-  });
-
-  ws.send(
-    JSON.stringify({
-      type: "room-left",
-      payload: { roomId },
-    } satisfies ServerMessage),
-  );
-
-  if (room.clients.size === 0) {
-    rooms.delete(roomId);
-  }
-}
-
-// 💬 CHAT MESSAGE
-function handleChatMessage(roomId: RoomId, message: Message) {
-  const room = rooms.get(roomId);
-  if (!room) return;
-
-  const timestamp = new Date().toISOString();
-
-  broadcastToRoom(roomId, {
-    type: "message-received",
-    payload: {
-      roomId,
-      message,
-      timestamp,
-    },
-  });
-}
-
-// 📋 GET ROOMS
-function handleGetRooms(ws: Client) {
-  const roomsList = Array.from(rooms.entries()).map(([id, room]) => ({
-    id,
-    name: room.name,
-    memberCount: room.clients.size,
-  }));
-
-  ws.send(
-    JSON.stringify({
-      type: "rooms-list",
-      payload: { rooms: roomsList },
-    } satisfies ServerMessage),
-  );
-}
-
 // 🔌 WebSocket connection
-wss.on("connection", (ws: Client) => {
+wss.on("connection", (ws: WebSocketClient) => {
+  ws.isAlive = true;
+
+  ws.on("pong", () => {
+    ws.isAlive = true;
+  });
+
   ws.on("message", (data) => {
+    logger.debug({ rawData: data.toString() }, "Received message");
+
     let message: WebSocketMessage;
     try {
       message = JSON.parse(data.toString());
@@ -161,28 +52,40 @@ wss.on("connection", (ws: Client) => {
         handleGetRooms(ws);
         break;
     }
+
+    logger.info({ type: message.type }, "Handling message type");
   });
 
   ws.on("close", () => {
     if (ws.roomId && ws.user) {
-      const room = rooms.get(ws.roomId);
-      if (room) {
-        room.clients.delete(ws);
+      logger.info(
+        { roomId: ws.roomId, userId: ws.user.id },
+        "Cleaning up user on disconnect",
+      );
 
-        broadcastToRoom(ws.roomId, {
-          type: "user-left",
-          payload: {
-            roomId: ws.roomId,
-            user: ws.user!,
-          },
-        });
-
-        if (room.clients.size === 0) {
-          rooms.delete(ws.roomId);
-        }
-      }
+      handleLeaveRoom(ws, ws.roomId);
     }
   });
 });
 
-console.log(`WebSocket server started on ws://localhost:${PORT}`);
+const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+
+const interval = setInterval(() => {
+  wss.clients.forEach((client) => {
+    const ws = client as WebSocketClient;
+
+    if (ws.isAlive === false) {
+      logger.info("Terminating dead connection");
+      return ws.terminate();
+    }
+
+    ws.isAlive = false;
+    ws.ping(); // triggers 'pong' if client is responsive
+  });
+}, HEARTBEAT_INTERVAL);
+
+wss.on("close", () => {
+  clearInterval(interval);
+});
+
+logger.info(`WebSocket server started on ws://localhost:${PORT}`);

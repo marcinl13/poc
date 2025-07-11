@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { connectToWebSocket, type Message, type ServerMessage, type User } from "@/lib/websocket/client";
+import { type ChatMessage, type ChatRoomId, type ChatUser, connectToWebSocket, type ServerMessage } from "@/lib/websocket/client";
 
-export function useWsChat(roomId: string, user: User) {
+export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
   const ws = useRef<WebSocket | null>(null);
-  const [members, setMembers] = useState<User[]>([]);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [members, setMembers] = useState<ChatUser[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
     ws.current = connectToWebSocket();

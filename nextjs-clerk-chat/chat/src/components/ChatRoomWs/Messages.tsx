@@ -1,9 +1,9 @@
 "use client";
 
-import type { Message } from "@/lib/websocket/client";
+import type { ChatMessage } from "@/lib/websocket/client";
 import type { FC } from "react";
 
-export const Messages: FC<{ messages: Message[] }> = ({ messages }) => {
+export const Messages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
   return (
     <section className="mb-6 border rounded-lg p-4 h-[300px] overflow-y-auto bg-gray-50">
       <h2 className="text-xl font-semibold mb-4">Messages</h2>

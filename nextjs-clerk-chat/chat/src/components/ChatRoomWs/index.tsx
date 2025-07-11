@@ -1,15 +1,15 @@
 "use client";
 
 import { useWsChat } from "@/hooks/useWsChat";
-import type { SocketUserProfile } from "@/types";
 import { Form } from "./Form";
 import { Members } from "./Members";
 import { Messages } from "./Messages";
 import type { FC } from "react";
+import type { ChatRoomId, ChatUser } from "@/lib/websocket/client";
 
 export const ChatRoomWs: FC<{
-  roomId: string;
-  userInfo: SocketUserProfile;
+  roomId: ChatRoomId;
+  userInfo: ChatUser;
 }> = ({ roomId, userInfo }) => {
   const { members, messages, sendMessage } = useWsChat(roomId, userInfo);
 

@@ -7,22 +7,24 @@ export function connectToWebSocket(): WebSocket {
   return socket;
 }
 
-export type User = {
+export type ChatRoomId = string;
+
+export type ChatUser = {
   id: string;
   email: string;
   role: "author" | "publisher";
 };
 
-export type Message = {
+export type ChatMessage = {
   text: string;
-  user: User;
+  user: ChatUser;
 };
 
 export type ServerMessage =
-  | { type: "room-joined"; payload: { roomId: string; members: User[] } }
-  | { type: "user-joined"; payload: { roomId: string; user: User } }
-  | { type: "user-left"; payload: { roomId: string; user: User } }
+  | { type: "room-joined"; payload: { roomId: ChatRoomId; members: ChatUser[] } }
+  | { type: "user-joined"; payload: { roomId: ChatRoomId; user: ChatUser } }
+  | { type: "user-left"; payload: { roomId: ChatRoomId; user: ChatUser } }
   | {
       type: "message-received";
-      payload: { roomId: string; message: Message; timestamp: string };
+      payload: { roomId: ChatRoomId; message: ChatMessage; timestamp: string };
     };

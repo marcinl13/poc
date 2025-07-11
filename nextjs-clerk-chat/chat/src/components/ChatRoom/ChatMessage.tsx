@@ -1,4 +1,5 @@
-import type { RoleValue, SocketMessage } from "@/types";
+import type { ChatMessage } from "@/lib/socketio/client";
+import type { RoleValue } from "@/types";
 import { FC } from "react";
 
 const roleColors: Record<RoleValue, string> = {
@@ -6,15 +7,15 @@ const roleColors: Record<RoleValue, string> = {
   publisher: "text-blue-500",
 };
 
-const UserName: FC<Pick<SocketMessage, "user">> = ({ user }) => (
+const UserName: FC<Pick<ChatMessage, "user">> = ({ user }) => (
   <strong className={roleColors[user.role]}>{user.email}</strong>
 );
 
-const UserMessage: FC<Pick<SocketMessage, "text">> = ({ text }) => (
+const UserMessage: FC<Pick<ChatMessage, "text">> = ({ text }) => (
   <span>{text}</span>
 );
 
-export const ChatMessage: FC<{ message: SocketMessage }> = ({ message }) => (
+export const Message: FC<{ message: ChatMessage }> = ({ message }) => (
   <div>
     <UserName user={message.user} />: <UserMessage text={message.text} />
   </div>

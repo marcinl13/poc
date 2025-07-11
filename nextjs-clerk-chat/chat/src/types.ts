@@ -17,8 +17,3 @@ export type SocketUser = {
   socketId: string;
   user: SocketUserProfile;
 };
-
-export type SocketMessage = {
-  text: string;
-  user: SocketUserProfile;
-};

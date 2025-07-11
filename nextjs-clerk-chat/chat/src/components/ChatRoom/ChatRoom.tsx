@@ -1,24 +1,29 @@
 "use client";
 
-import { socket } from "@/lib/socketio/client";
-import type { SocketUserProfile, SocketMessage, SocketUser } from "@/types";
+import {
+  type ChatRoomId,
+  type ChatUser,
+  socket,
+  type ChatMessage,
+} from "@/lib/socketio/client";
+import type { SocketUser } from "@/types";
 import { useEffect, useState, FC } from "react";
 import { ChatForm } from "./ChatForm";
-import { ChatMessage } from "./ChatMessage";
+import { Message } from "./ChatMessage";
 
 type ChatProps = {
-  roomId: string;
-  userInfo: SocketUserProfile;
+  roomId: ChatRoomId;
+  userInfo: ChatUser;
 };
 
 export const ChatRoom: FC<ChatProps> = ({ roomId, userInfo }) => {
-  const [messages, setMessages] = useState<SocketMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [users, setUsers] = useState<SocketUser[]>([]);
 
   useEffect(() => {
     if (!roomId) return;
 
-    const handleMessage = (msg: SocketMessage) => {
+    const handleMessage = (msg: ChatMessage) => {
       setMessages((prev) => [...prev, msg]);
     };
 
@@ -36,7 +41,7 @@ export const ChatRoom: FC<ChatProps> = ({ roomId, userInfo }) => {
       socket.off("chat-message", handleMessage);
       socket.off("room-users", handleRoomUsers);
     };
-  }, [roomId]);
+  }, [roomId, userInfo]);
 
   return (
     <div className="p-6 flex flex-col lg:flex-row gap-4">
@@ -58,7 +63,7 @@ export const ChatRoom: FC<ChatProps> = ({ roomId, userInfo }) => {
           <h2 className="font-semibold">Messages:</h2>
           <div className="bg-gray-100 p-4 rounded h-64 overflow-y-auto">
             {messages.map((msg, index) => (
-              <ChatMessage key={index} message={msg} />
+              <Message key={index} message={msg} />
             ))}
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { SocketMessage, SocketUserProfile } from "@/types";
 import { RdsInput, RdsButton } from "rds/atoms";
+import type { ChatMessage, ChatUser } from "@/lib/socketio/client";
 
 type ChatFormProps = {
-  userInfo: SocketUserProfile;
-  handleOnMessageSend: (msg: SocketMessage) => void;
+  userInfo: ChatUser;
+  handleOnMessageSend: (msg: ChatMessage) => void;
 };
 
 export const ChatForm = ({ userInfo, handleOnMessageSend }: ChatFormProps) => {
@@ -13,7 +13,7 @@ export const ChatForm = ({ userInfo, handleOnMessageSend }: ChatFormProps) => {
   const sendMessage = () => {
     if (message.trim() === "") return;
 
-    const newMessage: SocketMessage = {
+    const newMessage: ChatMessage = {
       text: message,
       user: userInfo,
     };

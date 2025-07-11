@@ -17,6 +17,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/chat-app": "file:./../@types/chat-app/",
     "socket.io": "^4.8.1"
   }
 }

@@ -1,5 +1,5 @@
 import { getUserDataWithRole } from "@/data-access-layer/get-user-data-with-role";
-import { ChatRoomSocketIo } from "@/components/ChatRoomSocketIo";
+import { ChatRoomSocketIo } from "./ChatRoomSocketIo";
 
 type Params = Promise<{ roomId: string }>;
 

@@ -1,5 +1,5 @@
 import { getUserDataWithRole } from "@/data-access-layer/get-user-data-with-role";
-import { ChatRoomWs } from "@/components/ChatRoomWs";
+import { ChatRoomWs } from "./ChatRoomWs";
 
 type Params = Promise<{ roomId: string }>;
 

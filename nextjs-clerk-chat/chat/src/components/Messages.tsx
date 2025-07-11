@@ -1,7 +1,12 @@
 "use client";
 
-import type { ChatMessage } from "chat-app";
+import type { ChatMessage, ChatRoleValue } from "chat-app";
 import type { FC } from "react";
+
+const roleColors: Record<ChatRoleValue, string> = {
+  author: "text-green-500",
+  publisher: "text-blue-500",
+};
 
 export const Messages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
   return (
@@ -14,7 +19,7 @@ export const Messages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
 
       {messages.map((msg, i) => (
         <p key={i} className="mb-2">
-          <strong className="text-blue-600">{msg.user.email}:</strong>{" "}
+          <strong className={roleColors[msg.user.role]}>{msg.user.email}:</strong>{" "}
           <span>{msg.text}</span>
         </p>
       ))}

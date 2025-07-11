@@ -1,43 +1,43 @@
 import type { WebSocket } from "ws";
 
-export type RoomId = string;
+export type ChatRoomId = string;
 
-export type User = {
+export type ChatUser = {
   id: string;
   email: string;
   role: "author" | "publisher";
 };
 
-export type Message = {
+export type ChatMessage = {
   text: string;
-  user: User;
+  user: ChatUser;
 };
 
 export type WebSocketClient = WebSocket & {
   isAlive: boolean;
-  user?: User;
-  roomId?: RoomId;
+  user?: ChatUser;
+  roomId?: ChatRoomId;
 };
 
 export type WebSocketMessage =
   | {
       type: "join-room";
       payload: {
-        roomId: RoomId;
-        user: User;
+        roomId: ChatRoomId;
+        user: ChatUser;
       };
     }
   | {
       type: "leave-room";
       payload: {
-        roomId: RoomId;
+        roomId: ChatRoomId;
       };
     }
   | {
       type: "chat-message";
       payload: {
-        roomId: RoomId;
-        message: Message;
+        roomId: ChatRoomId;
+        message: ChatMessage;
       };
     }
   | {
@@ -45,7 +45,7 @@ export type WebSocketMessage =
       payload: {
         rooms: Array<
           {
-            id: RoomId;
+            id: ChatRoomId;
             name: string;
             memberCount: number;
           }[]
@@ -57,35 +57,35 @@ export type ServerMessage =
   | {
       type: "room-joined";
       payload: {
-        roomId: RoomId;
-        members: User[];
+        roomId: ChatRoomId;
+        members: ChatUser[];
       };
     }
   | {
       type: "room-left";
       payload: {
-        roomId: RoomId;
+        roomId: ChatRoomId;
       };
     }
   | {
       type: "user-joined";
       payload: {
-        roomId: RoomId;
-        user: User;
+        roomId: ChatRoomId;
+        user: ChatUser;
       };
     }
   | {
       type: "user-left";
       payload: {
-        roomId: RoomId;
-        user: User;
+        roomId: ChatRoomId;
+        user: ChatUser;
       };
     }
   | {
       type: "message-received";
       payload: {
-        roomId: RoomId;
-        message: Message;
+        roomId: ChatRoomId;
+        message: ChatMessage;
         timestamp: string;
       };
     }
@@ -93,7 +93,7 @@ export type ServerMessage =
       type: "rooms-list";
       payload: {
         rooms: Array<{
-          id: RoomId;
+          id: ChatRoomId;
           name: string;
           memberCount: number;
         }>;

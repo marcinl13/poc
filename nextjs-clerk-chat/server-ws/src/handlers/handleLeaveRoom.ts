@@ -1,9 +1,9 @@
 import { rooms } from "../server";
-import type { RoomId, WebSocketClient } from "../types";
+import type { ChatRoomId, WebSocketClient } from "../types";
 import { broadcastToRoom } from "../utils/broadcastToRoom";
 import { sendMessage } from "../utils/sendMessage";
 
-export function handleLeaveRoom(ws: WebSocketClient, roomId: RoomId) {
+export function handleLeaveRoom(ws: WebSocketClient, roomId: ChatRoomId) {
   const room = rooms.get(roomId);
   if (!room || !ws.user) return;
 

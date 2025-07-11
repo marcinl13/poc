@@ -1,8 +1,8 @@
 import { rooms } from "../server";
-import type { Message, RoomId } from "../types";
+import type { ChatMessage, ChatRoomId } from "../types";
 import { broadcastToRoom } from "../utils/broadcastToRoom";
 
-export function handleChatMessage(roomId: RoomId, message: Message) {
+export function handleChatMessage(roomId: ChatRoomId, message: ChatMessage) {
   const room = rooms.get(roomId);
   if (!room) return;
 

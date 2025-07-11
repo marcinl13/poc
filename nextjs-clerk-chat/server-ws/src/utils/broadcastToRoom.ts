@@ -1,8 +1,8 @@
 import { rooms } from "../server";
-import type { RoomId, ServerMessage, WebSocketClient } from "../types";
+import type { ChatRoomId, ServerMessage, WebSocketClient } from "../types";
 
 export function broadcastToRoom(
-  roomId: RoomId,
+  roomId: ChatRoomId,
   message: ServerMessage,
   excludeClient?: WebSocketClient,
 ) {

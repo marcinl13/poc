@@ -3,14 +3,14 @@ import { handleChatMessage } from "./handlers/handleChatMessage";
 import { handleGetRooms } from "./handlers/handleGetRooms";
 import { handleJoinRoom } from "./handlers/handleJoinRoom";
 import { handleLeaveRoom } from "./handlers/handleLeaveRoom";
-import type { RoomId, WebSocketClient, WebSocketMessage } from "./types";
+import type { ChatRoomId, WebSocketClient, WebSocketMessage } from "./types";
 import logger from "./utils/logger";
 
 const PORT = 8080;
 const wss = new WebSocketServer({ port: PORT });
 
 export const rooms = new Map<
-  RoomId,
+  ChatRoomId,
   {
     name: string;
     clients: Set<WebSocketClient>;

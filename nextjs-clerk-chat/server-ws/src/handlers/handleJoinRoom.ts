@@ -1,12 +1,12 @@
 import { rooms } from "../server";
-import type { RoomId, User, WebSocketClient } from "../types";
+import type { ChatRoomId, ChatUser, WebSocketClient } from "../types";
 import { broadcastToRoom } from "../utils/broadcastToRoom";
 import { sendMessage } from "../utils/sendMessage";
 
 export function handleJoinRoom(
   ws: WebSocketClient,
-  roomId: RoomId,
-  user: User,
+  roomId: ChatRoomId,
+  user: ChatUser,
 ) {
   ws.user = user;
   ws.roomId = roomId;

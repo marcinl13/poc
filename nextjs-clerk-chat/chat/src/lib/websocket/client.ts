@@ -1,3 +1,5 @@
+import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
+
 let socket: WebSocket | null = null;
 
 export function connectToWebSocket(): WebSocket {
@@ -6,19 +8,6 @@ export function connectToWebSocket(): WebSocket {
   }
   return socket;
 }
-
-export type ChatRoomId = string;
-
-export type ChatUser = {
-  id: string;
-  email: string;
-  role: "author" | "publisher";
-};
-
-export type ChatMessage = {
-  text: string;
-  user: ChatUser;
-};
 
 export type ServerMessage =
   | { type: "room-joined"; payload: { roomId: ChatRoomId; members: ChatUser[] } }

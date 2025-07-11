@@ -4,8 +4,8 @@ import { Form } from "./Form";
 import { Members } from "./Members";
 import { Messages } from "./Messages";
 import type { FC } from "react";
-import type { ChatRoomId, ChatUser } from "@/lib/socketio/client";
 import { useSocketIoChat } from "@/hooks/useSocketIoChat";
+import type { ChatRoomId, ChatUser } from "chat-app";
 
 export const ChatRoomSocketIo: FC<{
   roomId: ChatRoomId;

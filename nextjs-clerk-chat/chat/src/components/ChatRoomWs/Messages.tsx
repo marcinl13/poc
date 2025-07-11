@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChatMessage } from "@/lib/websocket/client";
+import type { ChatMessage } from "chat-app";
 import type { FC } from "react";
 
 export const Messages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {

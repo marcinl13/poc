@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChatUser } from "@/lib/websocket/client";
+import type { ChatUser } from "chat-app";
 import type { FC } from "react";
 
 export const Members: FC<{ members: ChatUser[] }> = ({ members }) => {

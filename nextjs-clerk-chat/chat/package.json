@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.3",
+    "@types/chat-app": "file:./../@types/chat-app/",
     "next": "15.3.5",
     "rds": "https://github.com/marcinl13/rds#v1.7.3",
     "react": "^19.0.0",

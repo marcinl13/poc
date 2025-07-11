@@ -1,6 +1,5 @@
 "use client";
 
-import type { SocketUser } from "@/types";
 import { io, type Socket } from "socket.io-client";
 
 // Events sent from client to server

@@ -21,5 +21,5 @@ export async function joinRoomAction(formData: FormData) {
     maxAge: 60 * 60 * 24 * 7, // 1 week
   });
 
-  redirect(`/chat/${channelId}`);
+  redirect(`/chat-ws/${channelId}`);
 }

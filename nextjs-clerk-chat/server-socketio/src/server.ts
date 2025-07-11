@@ -1,13 +1,13 @@
-import { createServer, type IncomingMessage, type ServerResponse } from "http";
+import {
+  type IncomingMessage,
+  type ServerResponse,
+  createServer,
+} from "node:http";
+import type { ChatRoomId } from "chat-app";
 import { pino } from "pino";
 import { pinoHttp } from "pino-http";
 import { Server } from "socket.io";
-import type {
-  ChatRoomId,
-  ChatUser,
-  ChatMessage,
-  SocketIoClient,
-} from "./types";
+import type { SocketIoClient } from "./types";
 
 // Initialize pino logger
 const logger = pino({ level: "info" });
@@ -87,7 +87,7 @@ io.on("connection", (socket: SocketIoClient) => {
     if (socket.roomId && socket.user) {
       logger.info(
         { roomId: socket.roomId, userId: socket.user.id },
-        "Cleaning up user on disconnect"
+        "Cleaning up user on disconnect",
       );
 
       const room = rooms.get(socket.roomId);

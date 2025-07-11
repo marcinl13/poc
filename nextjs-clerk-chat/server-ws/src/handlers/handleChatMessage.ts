@@ -1,5 +1,5 @@
+import type { ChatMessage, ChatRoomId } from "chat-app";
 import { rooms } from "../server";
-import type { ChatMessage, ChatRoomId } from "../types";
 import { broadcastToRoom } from "../utils/broadcastToRoom";
 
 export function handleChatMessage(roomId: ChatRoomId, message: ChatMessage) {

@@ -2,7 +2,7 @@
 
 import { type FC, useState } from "react";
 
-export const Form: FC<{ onSubmitMessage: (text: string) => void }> = ({
+export const ChatForm: FC<{ onSubmitMessage: (text: string) => void }> = ({
   onSubmitMessage,
 }) => {
   const [input, setInput] = useState("");

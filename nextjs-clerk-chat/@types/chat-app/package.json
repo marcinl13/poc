@@ -1,0 +1,28 @@
+{
+  "name": "@types/chat-app",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "biome format --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.0.0",
+    "@rslib/core": "^0.10.5",
+    "@types/node": "^22.16.0",
+    "typescript": "^5.8.3"
+  },
+  "private": true
+}

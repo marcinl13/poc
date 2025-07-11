@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "server-ws",
         "chat-app",
-        "server-socketio"
+        "server-socketio",
+        "shared-types"
     ]
 }

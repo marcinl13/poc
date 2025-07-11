@@ -1,5 +1,6 @@
 "use client";
 
+import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
 import { io, type Socket } from "socket.io-client";
 
 // Events sent from client to server
@@ -18,16 +19,3 @@ export interface ServerToClientEvents {
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   process.env.NEXT_PUBLIC_SOCKET_IO_SERVER_URL
 );
-
-export type ChatRoomId = string;
-
-export type ChatUser = {
-  id: string;
-  email: string;
-  role: "author" | "publisher";
-};
-
-export type ChatMessage = {
-  text: string;
-  user: ChatUser;
-};

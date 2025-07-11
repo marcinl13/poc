@@ -1,17 +1,5 @@
+import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
 import type { WebSocket } from "ws";
-
-export type ChatRoomId = string;
-
-export type ChatUser = {
-  id: string;
-  email: string;
-  role: "author" | "publisher";
-};
-
-export type ChatMessage = {
-  text: string;
-  user: ChatUser;
-};
 
 export type WebSocketClient = WebSocket & {
   isAlive: boolean;

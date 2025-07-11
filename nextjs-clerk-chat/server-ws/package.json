@@ -19,6 +19,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/chat-app": "file:./../@types/chat-app/",
     "ws": "^8.18.3"
   }
 }

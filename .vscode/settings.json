@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "server-ws",
-        "chat-app"
+        "chat-app",
+        "server-socketio"
     ]
 }

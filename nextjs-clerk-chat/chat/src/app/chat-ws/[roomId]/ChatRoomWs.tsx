@@ -14,12 +14,10 @@ export const ChatRoomWs: FC<{
   const { members, messages, sendMessage } = useWsChat(roomId, userInfo);
 
   return (
-    <main className="max-w-3xl mx-auto mt-10 font-sans">
-      <h1 className="text-3xl font-bold mb-6">Room: {roomId}</h1>
-
+    <>
       <ChatMembers members={members} />
       <ChatMessages messages={messages} />
       <ChatForm onSubmitMessage={sendMessage} />
-    </main>
+    </>
   );
 };

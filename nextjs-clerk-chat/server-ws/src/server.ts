@@ -1,9 +1,10 @@
+import type { ChatRoomId } from "chat-app";
 import { WebSocketServer } from "ws";
 import { handleChatMessage } from "./handlers/handleChatMessage";
 import { handleGetRooms } from "./handlers/handleGetRooms";
 import { handleJoinRoom } from "./handlers/handleJoinRoom";
 import { handleLeaveRoom } from "./handlers/handleLeaveRoom";
-import type { ChatRoomId, WebSocketClient, WebSocketMessage } from "./types";
+import type { WebSocketClient, WebSocketMessage } from "./types";
 import logger from "./utils/logger";
 
 const PORT = 8080;
@@ -68,24 +69,24 @@ wss.on("connection", (ws: WebSocketClient) => {
   });
 });
 
-const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+// const HEARTBEAT_INTERVAL = 30000; // 30 seconds
 
-const interval = setInterval(() => {
-  wss.clients.forEach((client) => {
-    const ws = client as WebSocketClient;
+// const interval = setInterval(() => {
+//   wss.clients.forEach((client) => {
+//     const ws = client as WebSocketClient;
 
-    if (ws.isAlive === false) {
-      logger.info("Terminating dead connection");
-      return ws.terminate();
-    }
+//     if (ws.isAlive === false) {
+//       logger.info("Terminating dead connection");
+//       return ws.terminate();
+//     }
 
-    ws.isAlive = false;
-    ws.ping(); // triggers 'pong' if client is responsive
-  });
-}, HEARTBEAT_INTERVAL);
+//     ws.isAlive = false;
+//     ws.ping(); // triggers 'pong' if client is responsive
+//   });
+// }, HEARTBEAT_INTERVAL);
 
-wss.on("close", () => {
-  clearInterval(interval);
-});
+// wss.on("close", () => {
+//   clearInterval(interval);
+// });
 
 logger.info(`WebSocket server started on ws://localhost:${PORT}`);

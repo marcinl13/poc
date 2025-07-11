@@ -8,7 +8,7 @@ const roleColors: Record<ChatRoleValue, string> = {
   publisher: "text-blue-500",
 };
 
-export const Messages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
+export const ChatMessages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
   return (
     <section className="mb-6 border rounded-lg p-4 h-[300px] overflow-y-auto bg-gray-50">
       <h2 className="text-xl font-semibold mb-4">Messages</h2>

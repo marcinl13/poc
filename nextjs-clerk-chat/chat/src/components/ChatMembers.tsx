@@ -3,7 +3,7 @@
 import type { ChatUser } from "chat-app";
 import type { FC } from "react";
 
-export const Members: FC<{ members: ChatUser[] }> = ({ members }) => {
+export const ChatMembers: FC<{ members: ChatUser[] }> = ({ members }) => {
   return (
     <section className="mb-6">
       <h2 className="text-xl font-semibold mb-2">

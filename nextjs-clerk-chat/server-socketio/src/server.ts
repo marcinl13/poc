@@ -2,7 +2,12 @@ import { createServer, type IncomingMessage, type ServerResponse } from "http";
 import { pino } from "pino";
 import { pinoHttp } from "pino-http";
 import { Server } from "socket.io";
-import type { UserInRoom, RoomId, User, Message } from "./types";
+import type {
+  ChatRoomId,
+  ChatUser,
+  ChatMessage,
+  SocketIoClient,
+} from "./types";
 
 // Initialize pino logger
 const logger = pino({ level: "info" });
@@ -23,40 +28,55 @@ const io = new Server(server, {
   },
 });
 
-const usersInRooms: Record<string, UserInRoom[]> = {};
+export const rooms = new Map<
+  ChatRoomId,
+  {
+    name: string;
+    clients: Set<SocketIoClient>;
+  }
+>();
 
-type JoinRoomProps = { roomId: RoomId; user: User };
-type LeaveRoomProps = { roomId: RoomId };
-type ChatMessageProps = { roomId: RoomId; message: Message };
-
-io.on("connection", (socket) => {
+io.on("connection", (socket: SocketIoClient) => {
   logger.info(`New connection: ${socket.id}`);
 
-  socket.on("join-room", ({ roomId, user }: JoinRoomProps) => {
+  socket.on("join-room", ({ roomId, user }) => {
     socket.join(roomId);
+    socket.user = user;
+    socket.roomId = roomId;
 
-    usersInRooms[roomId] = usersInRooms[roomId] || [];
-    usersInRooms[roomId].push({ id: socket.id, user, socketId: socket.id });
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, { name: `Room ${roomId}`, clients: new Set() });
+    }
 
-    io.to(roomId).emit("room-users", usersInRooms[roomId]);
+    const room = rooms.get(roomId)!;
+    room.clients.add(socket);
+
+    const members = [...room.clients].map((c) => c.user!);
+    io.to(roomId).emit("room-users", members);
     socket.to(roomId).emit("user-joined", user);
 
-    logger.debug(`Users in room: ${roomId}`, usersInRooms[roomId]);
+    logger.debug(`Users in room: ${roomId}`, members);
   });
 
-  socket.on("leave-room", ({ roomId }: LeaveRoomProps) => {
+  socket.on("leave-room", ({ roomId }) => {
     socket.leave(roomId);
 
-    usersInRooms[roomId] = usersInRooms[roomId]?.filter(
-      (u) => u.id !== socket.id,
-    );
+    const room = rooms.get(roomId);
+    if (!room || !socket.user) return;
 
-    io.to(roomId).emit("room-users", usersInRooms[roomId]);
+    room.clients.delete(socket);
 
-    logger.debug(`Users in room: ${roomId}`, usersInRooms[roomId]);
+    const members = [...room.clients].map((c) => c.user!);
+    io.to(roomId).emit("room-users", members);
+
+    logger.debug(`Users in room: ${roomId}`, members);
+
+    if (room.clients.size === 0) {
+      rooms.delete(roomId);
+    }
   });
 
-  socket.on("chat-message", ({ roomId, message }: ChatMessageProps) => {
+  socket.on("chat-message", ({ roomId, message }) => {
     io.to(roomId).emit("chat-message", message);
 
     logger.debug("Chat message:", message);
@@ -64,12 +84,19 @@ io.on("connection", (socket) => {
 
   // todo fix me
   socket.on("disconnecting", () => {
-    for (const roomId of socket.rooms) {
-      if (roomId !== socket.id) {
-        usersInRooms[roomId] = usersInRooms[roomId]?.filter(
-          (u) => u.id !== socket.id,
-        );
-        io.to(roomId).emit("room-users", usersInRooms[roomId]);
+    if (socket.roomId && socket.user) {
+      logger.info(
+        { roomId: socket.roomId, userId: socket.user.id },
+        "Cleaning up user on disconnect"
+      );
+
+      const room = rooms.get(socket.roomId);
+      if (!room || !socket.user) return;
+
+      room.clients.delete(socket);
+
+      if (room.clients.size === 0) {
+        rooms.delete(socket.roomId);
       }
     }
   });

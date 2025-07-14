@@ -1,12 +1,8 @@
 "use client";
 
+import { socket } from "@/lib/socketio/client";
+import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
 import { useEffect, useRef, useState } from "react";
-import {
-  type ChatMessage,
-  type ChatRoomId,
-  type ChatUser,
-  socket,
-} from "@/lib/socketio/client";
 import type { Socket } from "socket.io-client";
 
 export function useSocketIoChat(roomId: ChatRoomId, user: ChatUser) {

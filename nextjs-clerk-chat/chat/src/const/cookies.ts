@@ -1,1 +1,1 @@
-export const COOKIE_ROLE_KEY = 'channelRole'
+export const COOKIE_ROLE_KEY = "channelRole";

@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { ChatRole } from "chat-app";
-import { RdsLabel, RdsInput, RdsSelect } from "rds/atoms";
 import { FormButton } from "@/components/FormButton";
+import { ChatRole } from "chat-app";
+import { RdsInput, RdsLabel, RdsSelect } from "rds/atoms";
+import type { FC } from "react";
 import { joinRoomAction } from "./joinRoomAction";
 
 export const FormJoinChannel: FC = () => {
   return (
     <form className="space-y-6" action={joinRoomAction}>
       <div>
-        <RdsLabel htmlFor="channelId" children="Channel ID" />
+        <RdsLabel htmlFor="channelId">Channel ID</RdsLabel>
         <RdsInput
           type="text"
           name="channelId"
@@ -20,7 +20,7 @@ export const FormJoinChannel: FC = () => {
       </div>
 
       <div>
-        <RdsLabel htmlFor="role" children="Role" />
+        <RdsLabel htmlFor="role">Role</RdsLabel>
         <RdsSelect name="role" id="role" className="w-full" required>
           <option value="">None</option>
 
@@ -32,7 +32,7 @@ export const FormJoinChannel: FC = () => {
         </RdsSelect>
       </div>
 
-      <FormButton pendingText="Joining" children="Join" />
+      <FormButton pendingText="Joining">Join</FormButton>
     </form>
   );
 };

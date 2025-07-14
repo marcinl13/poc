@@ -1,7 +1,8 @@
 "use client";
 
+import { type ServerMessage, connectToWebSocket } from "@/lib/websocket/client";
+import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
 import { useEffect, useRef, useState } from "react";
-import { type ChatMessage, type ChatRoomId, type ChatUser, connectToWebSocket, type ServerMessage } from "@/lib/websocket/client";
 
 export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
   const ws = useRef<WebSocket | null>(null);
@@ -16,7 +17,7 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
         JSON.stringify({
           type: "join-room",
           payload: { roomId, user },
-        })
+        }),
       );
     };
 
@@ -44,7 +45,7 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
         JSON.stringify({
           type: "leave-room",
           payload: { roomId },
-        })
+        }),
       );
       ws.current?.close();
     };
@@ -60,7 +61,7 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
           roomId,
           message: { text, user },
         },
-      })
+      }),
     );
   }
 

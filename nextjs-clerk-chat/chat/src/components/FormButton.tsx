@@ -1,8 +1,8 @@
 "use client";
 
+import { RdsButton } from "rds/atoms";
 import type { ComponentProps, FC, PropsWithChildren, ReactNode } from "react";
 import { useFormStatus } from "react-dom";
-import { RdsButton } from "rds/atoms";
 
 type ButtonAttr = ComponentProps<typeof RdsButton>;
 type AdditionalProps = { pendingText?: ReactNode };

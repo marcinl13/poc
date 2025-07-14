@@ -19,7 +19,9 @@ export const ChatMessages: FC<{ messages: ChatMessage[] }> = ({ messages }) => {
 
       {messages.map((msg, i) => (
         <p key={i} className="mb-2">
-          <strong className={roleColors[msg.user.role]}>{msg.user.email}:</strong>{" "}
+          <strong className={roleColors[msg.user.role]}>
+            {msg.user.email}:
+          </strong>{" "}
           <span>{msg.text}</span>
         </p>
       ))}

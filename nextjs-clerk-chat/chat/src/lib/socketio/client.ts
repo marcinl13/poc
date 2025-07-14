@@ -1,13 +1,16 @@
 "use client";
 
 import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
-import { io, type Socket } from "socket.io-client";
+import { type Socket, io } from "socket.io-client";
 
 // Events sent from client to server
 export interface ClientToServerEvents {
   "join-room": (payload: { roomId: ChatRoomId; user: ChatUser }) => void;
   "leave-room": (payload: { roomId: ChatRoomId }) => void;
-  "chat-message": (payload: { roomId: ChatRoomId; message: ChatMessage }) => void;
+  "chat-message": (payload: {
+    roomId: ChatRoomId;
+    message: ChatMessage;
+  }) => void;
 }
 
 // Events received from server

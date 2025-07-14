@@ -1,7 +1,7 @@
 import "server-only";
 
-import { cookies } from "next/headers";
 import { COOKIE_ROLE_KEY } from "@/const/cookies";
+import { cookies } from "next/headers";
 import { requireUserData } from "./require-user-data";
 
 export const setUserRole = async (channelRole: string) => {

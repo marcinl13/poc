@@ -10,7 +10,10 @@ export function connectToWebSocket(): WebSocket {
 }
 
 export type ServerMessage =
-  | { type: "room-joined"; payload: { roomId: ChatRoomId; members: ChatUser[] } }
+  | {
+      type: "room-joined";
+      payload: { roomId: ChatRoomId; members: ChatUser[] };
+    }
   | { type: "user-joined"; payload: { roomId: ChatRoomId; user: ChatUser } }
   | { type: "user-left"; payload: { roomId: ChatRoomId; user: ChatUser } }
   | {

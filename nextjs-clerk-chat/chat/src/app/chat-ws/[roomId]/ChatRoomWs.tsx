@@ -1,11 +1,11 @@
 "use client";
 
-import { useWsChat } from "@/hooks/useWsChat";
-import type { FC } from "react";
-import type { ChatRoomId, ChatUser } from "chat-app";
 import { ChatForm } from "@/components/ChatForm";
 import { ChatMembers } from "@/components/ChatMembers";
 import { ChatMessages } from "@/components/ChatMessages";
+import { useWsChat } from "@/hooks/useWsChat";
+import type { ChatRoomId, ChatUser } from "chat-app";
+import type { FC } from "react";
 
 export const ChatRoomWs: FC<{
   roomId: ChatRoomId;

@@ -17,7 +17,7 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
         JSON.stringify({
           type: "join-room",
           payload: { roomId, user },
-        }),
+        })
       );
     };
 
@@ -41,13 +41,15 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
     };
 
     return () => {
-      ws.current?.send(
-        JSON.stringify({
-          type: "leave-room",
-          payload: { roomId },
-        }),
-      );
-      ws.current?.close();
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        ws.current.send(
+          JSON.stringify({
+            type: "leave-room",
+            payload: { roomId },
+          })
+        );
+        ws.current?.close();
+      }
     };
   }, [roomId, user]);
 
@@ -61,7 +63,7 @@ export function useWsChat(roomId: ChatRoomId, user: ChatUser) {
           roomId,
           message: { text, user },
         },
-      }),
+      })
     );
   }
 

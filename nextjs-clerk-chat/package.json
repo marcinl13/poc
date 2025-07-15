@@ -1,0 +1,16 @@
+{
+  "name": "nextjs-clerk-chat",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "yarn@1.22.0",
+  "workspaces": [
+    "chat",
+    "server-socketio",
+    "server-ws"
+  ],
+  "scripts": {
+    "app:dev": "yarn workspace chat run dev",
+    "app:server-ws:dev": "yarn workspace server-ws run dev",
+    "app:server-socketio:dev": "yarn workspace server-socketio run dev"
+  }
+}

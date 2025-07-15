@@ -3,7 +3,7 @@ import {
   type ServerResponse,
   createServer,
 } from "node:http";
-import type { ChatRoomId } from "chat-app";
+import type { ChatRoomId } from "@chat/shared";
 import { pino } from "pino";
 import { pinoHttp } from "pino-http";
 import { Server } from "socket.io";

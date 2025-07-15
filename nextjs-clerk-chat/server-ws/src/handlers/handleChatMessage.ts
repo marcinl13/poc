@@ -1,4 +1,4 @@
-import type { ChatMessage, ChatRoomId } from "chat-app";
+import type { ChatMessage, ChatRoomId } from "@chat/shared";
 import { rooms } from "../server";
 import { broadcastToRoom } from "../utils/broadcastToRoom";
 

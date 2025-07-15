@@ -1,4 +1,4 @@
-import type { ChatRoomId } from "chat-app";
+import type { ChatRoomId } from "@chat/shared";
 import { rooms } from "../server";
 import type { WebSocketClient } from "../types";
 import { broadcastToRoom } from "../utils/broadcastToRoom";

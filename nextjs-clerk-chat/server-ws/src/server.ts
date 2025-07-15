@@ -1,4 +1,4 @@
-import type { ChatRoomId } from "chat-app";
+import type { ChatRoomId } from "@chat/shared";
 import { WebSocketServer } from "ws";
 import { handleChatMessage } from "./handlers/handleChatMessage";
 import { handleGetRooms } from "./handlers/handleGetRooms";

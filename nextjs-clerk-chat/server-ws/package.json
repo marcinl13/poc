@@ -19,7 +19,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/chat-app": "file:./../@types/chat-app/",
+    "@chat/shared": "1.0.0",
     "ws": "^8.18.3"
   }
 }

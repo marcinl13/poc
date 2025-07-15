@@ -1,4 +1,4 @@
-import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
+import type { ChatMessage, ChatRoomId, ChatUser } from "@chat/shared";
 import type { WebSocket } from "ws";
 
 export type WebSocketClient = WebSocket & {

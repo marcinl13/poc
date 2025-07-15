@@ -6,11 +6,14 @@
   "workspaces": [
     "chat",
     "server-socketio",
-    "server-ws"
+    "server-ws",
+    "shared"
   ],
   "scripts": {
     "app:dev": "yarn workspace chat run dev",
     "app:server-ws:dev": "yarn workspace server-ws run dev",
-    "app:server-socketio:dev": "yarn workspace server-socketio run dev"
+    "app:server-socketio:dev": "yarn workspace server-socketio run dev",
+    "app:shared:dev": "yarn workspace shared run dev",
+    "app:shared:build": "yarn workspace @chat/shared run build"
   }
 }

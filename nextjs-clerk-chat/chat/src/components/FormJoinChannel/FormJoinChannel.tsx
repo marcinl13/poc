@@ -2,11 +2,7 @@ import { FormButton } from "@/components/FormButton";
 import { RdsInput, RdsLabel, RdsSelect } from "rds/atoms";
 import type { FC } from "react";
 import { joinRoomAction } from "./joinRoomAction";
-
-export const Chat_Roles = {
-  Author: "author",
-  Publisher: "publisher",
-} as const;
+import { ChatRole } from "@chat/shared";
 
 export const FormJoinChannel: FC = () => {
   return (
@@ -28,7 +24,7 @@ export const FormJoinChannel: FC = () => {
         <RdsSelect name="role" id="role" className="w-full" required>
           <option value="">None</option>
 
-          {Object.entries(Chat_Roles).map(([key, value]) => (
+          {Object.entries(ChatRole).map(([key, value]) => (
             <option key={value} value={value}>
               {key}
             </option>

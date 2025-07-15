@@ -1,5 +1,6 @@
 "use client";
 
+import { RdsButton, RdsInput } from "rds/atoms";
 import { type FC, useState } from "react";
 
 export const ChatForm: FC<{ onSubmitMessage: (text: string) => void }> = ({
@@ -16,19 +17,17 @@ export const ChatForm: FC<{ onSubmitMessage: (text: string) => void }> = ({
 
   return (
     <form onSubmit={handleSend} className="flex gap-3">
-      <input
+      <RdsInput
         type="text"
         placeholder="Enter message"
+        className="flex-grow"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="flex-grow border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-      >
+
+      <RdsButton type="submit" _variant="secondary">
         Send
-      </button>
+      </RdsButton>
     </form>
   );
 };

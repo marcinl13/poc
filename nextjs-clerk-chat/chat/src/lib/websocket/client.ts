@@ -1,4 +1,4 @@
-import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
+import type { ChatMessage, ChatRoomId, ChatUser } from "@chat/shared";
 
 let socket: WebSocket | null = null;
 

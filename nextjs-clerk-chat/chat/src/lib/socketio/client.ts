@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
+import type { ChatMessage, ChatRoomId, ChatUser } from "@chat/shared";
 import { type Socket, io } from "socket.io-client";
 
 // Events sent from client to server

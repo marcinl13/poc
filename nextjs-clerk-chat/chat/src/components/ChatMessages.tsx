@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChatMessage, ChatRoleValue } from "chat-app";
+import type { ChatMessage, ChatRoleValue } from "@chat/shared";
 import type { FC } from "react";
 
 const roleColors: Record<ChatRoleValue, string> = {

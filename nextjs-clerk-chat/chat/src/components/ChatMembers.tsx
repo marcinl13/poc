@@ -1,6 +1,6 @@
 "use client";
 
-import type { ChatUser } from "chat-app";
+import type { ChatUser } from "@chat/shared";
 import type { FC } from "react";
 
 export const ChatMembers: FC<{ members: ChatUser[] }> = ({ members }) => {

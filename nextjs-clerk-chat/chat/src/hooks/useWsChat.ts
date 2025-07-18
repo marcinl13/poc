@@ -1,7 +1,7 @@
 "use client";
 
 import { type ServerMessage, connectToWebSocket } from "@/lib/websocket/client";
-import type { ChatMessage, ChatRoomId, ChatUser } from "chat-app";
+import type { ChatMessage, ChatRoomId, ChatUser } from "@chat/shared";
 import { useEffect, useRef, useState } from "react";
 
 export function useWsChat(roomId: ChatRoomId, user: ChatUser) {

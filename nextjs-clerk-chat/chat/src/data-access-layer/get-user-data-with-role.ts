@@ -1,7 +1,7 @@
 import "server-only";
 
 import { COOKIE_ROLE_KEY } from "@/const/cookies";
-import type { ChatRoleValue } from "chat-app";
+import type { ChatRoleValue } from "@chat/shared";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserData } from "./get-user-data";

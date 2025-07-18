@@ -20,6 +20,6 @@
     "app:shared:dev": "yarn workspace @chat/shared run dev",
     "app:shared:build": "yarn workspace @chat/shared run build",
     "app:shared:lint": "yarn workspace @chat/shared run lint",
-    "app:shared:lint:fix": "yarn workspace @chat/shared run lint:fix",
+    "app:shared:lint:fix": "yarn workspace @chat/shared run lint:fix"
   }
 }

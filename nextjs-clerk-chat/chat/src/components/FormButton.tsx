@@ -1,6 +1,6 @@
 "use client";
 
-import { RdsButton } from "rds/atoms";
+import { RdsButton } from "rds/atoms/RdsButton";
 import type { ComponentProps, FC, PropsWithChildren, ReactNode } from "react";
 import { useFormStatus } from "react-dom";
 

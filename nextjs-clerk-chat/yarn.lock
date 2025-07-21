@@ -3978,9 +3978,9 @@ quick-format-unescaped@^4.0.3:
   resolved "https://registry.yarnpkg.com/quick-format-unescaped/-/quick-format-unescaped-4.0.4.tgz#93ef6dd8d3453cbc7970dd614fad4c5954d6b5a7"
   integrity sha512-tYC1Q1hgyRuHgloV/YXs2w15unPVh8qfu/qCTfhTYamaw7fyhumKa2yGpdSo87vY32rIclj+4fWYQXUMs9EHvg==
 
-"rds@https://github.com/marcinl13/rds#v1.7.3":
-  version "1.7.3"
-  resolved "https://github.com/marcinl13/rds#8791057564944cfc9b6e83ff25ff4cc7c7f21ed6"
+"rds@https://github.com/marcinl13/rds#v1.8.0":
+  version "1.8.0"
+  resolved "https://github.com/marcinl13/rds#dd0e07e49a8c8b073f1843da331b32de921ef648"
   dependencies:
     class-variance-authority "^0.7.1"
     classnames "^2.5.1"

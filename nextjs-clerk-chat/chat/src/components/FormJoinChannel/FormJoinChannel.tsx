@@ -1,5 +1,7 @@
 import { FormButton } from "@/components/FormButton";
-import { RdsInput, RdsLabel, RdsSelect } from "rds/atoms";
+import { RdsInput } from "rds/atoms/RdsInput";
+import { RdsLabel } from "rds/atoms/RdsLabel";
+import { RdsSelect } from "rds/atoms/RdsSelect";
 import type { FC } from "react";
 import { joinRoomAction } from "./joinRoomAction";
 import { ChatRole } from "@chat/shared";

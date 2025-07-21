@@ -1,6 +1,7 @@
 "use client";
 
-import { RdsButton, RdsInput } from "rds/atoms";
+import { RdsButton } from "rds/atoms/RdsButton";
+import { RdsInput } from "rds/atoms/RdsInput";
 import { type FC, useState } from "react";
 
 export const ChatForm: FC<{ onSubmitMessage: (text: string) => void }> = ({

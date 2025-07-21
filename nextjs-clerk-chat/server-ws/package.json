@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "lint": "biome check .",
-    "lint:fix": "biome format --write ."
+    "lint:fix": "biome format --write .",
+    "lint:fix:unsafe": "biome check --fix --unsafe"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

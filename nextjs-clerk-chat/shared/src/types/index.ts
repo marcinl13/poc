@@ -1,6 +1,6 @@
 export enum ChatRole {
-  Author = "author",
-  Publisher = "publisher",
+  Author = 'author',
+  Publisher = 'publisher',
 }
 
 // Type with only the values of Role

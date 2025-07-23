@@ -1,0 +1,33 @@
+{
+  "name": "@chat/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "check": "biome check --write",
+    "dev": "rslib build --watch",
+    "format": "biome format --write",
+    "lint": "biome check .",
+    "lint:fix": "biome format --write .",
+    "lint:fix:unsafe": "biome check --fix --unsafe",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.0.0",
+    "@rslib/core": "^0.10.5",
+    "@types/node": "^22.16.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

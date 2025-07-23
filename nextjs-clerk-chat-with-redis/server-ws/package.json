@@ -1,0 +1,26 @@
+{
+  "name": "server-ws",
+  "version": "1.0.0",
+  "main": "./src/server.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/server.ts",
+    "lint": "biome check .",
+    "lint:fix": "biome format --write .",
+    "lint:fix:unsafe": "biome check --fix --unsafe"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^24.0.10",
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.1.10",
+    "pino": "^9.7.0",
+    "pino-pretty": "^13.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@chat/shared": "1.0.0",
+    "ws": "^8.18.3"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "nextjs-clerk-chat",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "yarn@1.22.0",
+  "workspaces": [
+    "chat",
+    "server-ws",
+    "shared"
+  ],
+  "scripts": {
+    "app:dev": "yarn workspace chat run dev",
+    "app:server-ws:dev": "yarn workspace server-ws run dev",
+    "app:server-ws:lint": "yarn workspace server-ws run lint",
+    "app:server-ws:lint:fix": "yarn workspace server-ws run lint:fix",
+    "app:server-ws:lint:fix:unsafe": "yarn workspace server-ws run lint:fix:unsafe",
+    "app:shared:dev": "yarn workspace @chat/shared run dev",
+    "app:shared:build": "yarn workspace @chat/shared run build",
+    "app:shared:lint": "yarn workspace @chat/shared run lint",
+    "app:shared:lint:fix": "yarn workspace @chat/shared run lint:fix",
+    "app:shared:lint:fix:unsafe": "yarn workspace @chat/shared run lint:fix:unsafe"
+  }
+}

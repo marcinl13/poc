@@ -3,6 +3,10 @@
         "chat-app",
         "server-ws",
         "server-socketio",
-        "shared"
+        "shared",
+        "chat-app-with-redis",
+        "chat-app-with-redis, client",
+        "chat-app-with-redis, server",
+        "chat-app-with-redis, shared",
     ]
 }

@@ -1,0 +1,5 @@
+services:
+  messages-storage:
+    image: redis:5.0.7
+    ports:
+      - 6380:6379

@@ -1,4 +1,5 @@
 import type { ChatRoomId } from "@chat/shared";
+import Redis from "ioredis";
 import { WebSocketServer } from "ws";
 import { handleChatMessage } from "./handlers/handleChatMessage";
 import { handleGetRooms } from "./handlers/handleGetRooms";
@@ -8,6 +9,7 @@ import type { WebSocketClient, WebSocketMessage } from "./types";
 import logger from "./utils/logger";
 
 const PORT = 8080;
+const redis = new Redis("redis://:@localhost:6380/0");
 const wss = new WebSocketServer({ port: PORT });
 
 export const rooms = new Map<
@@ -26,7 +28,7 @@ wss.on("connection", (ws: WebSocketClient) => {
     ws.isAlive = true;
   });
 
-  ws.on("message", (data) => {
+  ws.on("message", async (data) => {
     logger.debug({ rawData: data.toString() }, "Received message");
 
     let message: WebSocketMessage;
@@ -46,6 +48,11 @@ wss.on("connection", (ws: WebSocketClient) => {
         break;
 
       case "chat-message":
+        await redis.rpush(
+          `chat:messages:${message.payload.roomId}`,
+          JSON.stringify(message.payload.message),
+        );
+
         handleChatMessage(message.payload.roomId, message.payload.message);
         break;
 

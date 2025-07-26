@@ -11,7 +11,7 @@ export const getUserDataWithRole = async () => {
   const cookieStore = await cookies();
 
   const assignedRole = cookieStore.get(COOKIE_ROLE_KEY)?.value;
-  if (!assignedRole) redirect("/chat");
+  if (!assignedRole) redirect("/chat-ws");
 
   return {
     ...userData,

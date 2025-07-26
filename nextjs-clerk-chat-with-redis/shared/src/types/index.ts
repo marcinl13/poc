@@ -11,7 +11,7 @@ export type ChatRoomId = string;
 export type ChatUser = {
   id: string;
   email: string;
-  role: ChatRole;
+  role: ChatRoleValue;
 };
 
 export type ChatMessage = {

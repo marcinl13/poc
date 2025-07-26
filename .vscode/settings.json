@@ -8,5 +8,6 @@
         "chat-app-with-redis, client",
         "chat-app-with-redis, server",
         "chat-app-with-redis, shared",
+        "nextjs-better-auth"
     ]
 }

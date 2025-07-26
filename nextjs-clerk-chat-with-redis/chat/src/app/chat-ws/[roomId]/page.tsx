@@ -3,7 +3,7 @@ import { getUserDataWithRole } from "@/data-access-layer/get-user-data-with-role
 import { ChatRoomWs } from "./ChatRoomWs";
 
 type Params = Promise<{ roomId: string }>;
-const redis = new Redis("redis://:@localhost:6380/0");
+const redis = new Redis(process.env.NEXT_REDIS_URL as string);
 
 export default async function ChatRoomPage({ params }: { params: Params }) {
   const userDataWithRole = await getUserDataWithRole();

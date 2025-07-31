@@ -10,8 +10,8 @@ import {
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useState } from "react";
 
-export function useDndAssignment(initialItems: Item[]) {
-  const [items, setItems] = useState<Item[]>(initialItems);
+export function useDndAssignment(initialItems?: Item[]) {
+  const [items, setItems] = useState<Item[]>(initialItems || []);
   const [slots, setSlots] = useState<Slot[]>([
     { id: "slot-1", name: "Slot 1", items: [] },
     { id: "slot-2", name: "Slot 2", items: [] },
@@ -92,6 +92,22 @@ export function useDndAssignment(initialItems: Item[]) {
     }
   };
 
+  const addMoreItems = () => {
+    const currentSlotCount = items.length;
+    const newItem: Item[] = [
+      {
+        id: `item-${currentSlotCount + 1}`,
+        content: `Task ${currentSlotCount + 1}`,
+      },
+      {
+        id: `item-${currentSlotCount + 2}`,
+        content: `Task ${currentSlotCount + 2}`,
+      },
+    ];
+
+    setItems((prevSlots) => [...prevSlots, ...newItem]);
+  };
+
   const addMoreSlots = () => {
     const currentSlotCount = slots.length;
     const newSlots: Slot[] = [
@@ -106,6 +122,7 @@ export function useDndAssignment(initialItems: Item[]) {
         items: [],
       },
     ];
+
     setSlots((prevSlots) => [...prevSlots, ...newSlots]);
   };
 
@@ -160,6 +177,7 @@ export function useDndAssignment(initialItems: Item[]) {
     sensors,
     handleDragStart,
     handleDragEnd,
+    addMoreItems,
     addMoreSlots,
     removeTwoSlots,
     removeItemFromSlot,

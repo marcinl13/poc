@@ -1,5 +1,5 @@
 import { ENABLE_SLOT_LIMIT, MAX_ITEMS_PER_SLOT } from "@/const/const";
-import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 export function Summary({
   items,
@@ -11,10 +11,11 @@ export function Summary({
   slots: Slot[];
 }) {
   return (
-    <Card className="bg-gray-50 gap-1">
+    <Card className="mt-6 bg-gray-50 gap-1">
       <CardHeader>
         <CardTitle>Assignment Summary</CardTitle>
       </CardHeader>
+
       <CardContent className="text-sm text-gray-600">
         <span className="mr-4">Total Items: {items.length}</span>
         <span className="mr-4">

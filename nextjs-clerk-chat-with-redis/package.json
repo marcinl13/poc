@@ -1,23 +1,26 @@
 {
-  "name": "nextjs-clerk-chat",
+  "name": "nextjs-clerk-chat-with-redis",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "yarn@1.22.0",
   "workspaces": [
     "chat",
     "server-ws",
     "shared"
   ],
   "scripts": {
-    "app:dev": "yarn workspace chat run dev",
-    "app:server-ws:dev": "yarn workspace server-ws run dev",
-    "app:server-ws:lint": "yarn workspace server-ws run lint",
-    "app:server-ws:lint:fix": "yarn workspace server-ws run lint:fix",
-    "app:server-ws:lint:fix:unsafe": "yarn workspace server-ws run lint:fix:unsafe",
-    "app:shared:dev": "yarn workspace @chat/shared run dev",
-    "app:shared:build": "yarn workspace @chat/shared run build",
-    "app:shared:lint": "yarn workspace @chat/shared run lint",
-    "app:shared:lint:fix": "yarn workspace @chat/shared run lint:fix",
-    "app:shared:lint:fix:unsafe": "yarn workspace @chat/shared run lint:fix:unsafe"
+    "app:dev": "pnpm --filter=chat dev",
+    "app:server-ws:dev": "pnpm --filter=server-ws dev",
+    "app:server-ws:lint": "pnpm --filter=server-ws lint",
+    "app:server-ws:lint:fix": "pnpm --filter=server-ws lint:fix",
+    "app:server-ws:lint:fix:unsafe": "pnpm --filter=server-ws lint:fix:unsafe",
+    "app:shared:dev": "pnpm --filter=@chat/shared dev",
+    "app:shared:build": "pnpm --filter=@chat/shared build",
+    "app:shared:lint": "pnpm --filter=@chat/shared lint",
+    "app:shared:lint:fix": "pnpm --filter=@chat/shared lint:fix",
+    "app:shared:lint:fix:unsafe": "pnpm --filter=@chat/shared lint:fix:unsafe"
+  },
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+  "dependencies": {
+    "@chat/shared": "link:shared"
   }
 }

@@ -1,0 +1,7 @@
+packages:
+  - '@chat/shared'
+  - chat
+  - server-ws
+
+overrides:
+  '@chat/shared': link:shared

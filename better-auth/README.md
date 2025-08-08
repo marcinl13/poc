@@ -23,7 +23,7 @@ pnpm -v   # should output 10.13.1
 
 ### 1. Run Redis Instance
 
-Start the Postgress service using Docker Compose:
+Start the Postgres service using Docker Compose:
 
 ```bash
 docker compose up -d
@@ -37,9 +37,9 @@ Install all project dependencies using pnpm:
 pnpm install
 ```
 
-### 3. Sync with database
+### 3. Sync with the database
 
-Compile the shared package:
+Run the following command depending on your needs:
 
 ```bash
 npx prisma db pull
